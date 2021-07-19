@@ -1,7 +1,7 @@
 #define _GNU_SOURCE
 
-#include "vrt.h"
 #include "cache/cache.h"
+#include "vcl.h"
 #include "vcc_if.h"
 
 #include <arpa/inet.h>
@@ -11,6 +11,8 @@
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+#include <string.h>
 
 typedef struct cache {
   int sockfd;
@@ -28,8 +30,13 @@ static void free_mc_vcl_cache(void *data)
     free(cache);
 }
 
-int init_function(struct vmod_priv *priv, const struct VCL_conf *conf)
+int 
+vmod_init_function(const struct vrt_ctx *ctx, struct vmod_priv *priv, enum vcl_event_e e)
 {
+    if (e != VCL_EVENT_LOAD)
+      return (0);
+    /* init what you need */
+
     cache_t *cache;
 
     cache = calloc(1, sizeof(cache_t));
@@ -44,7 +51,7 @@ int init_function(struct vmod_priv *priv, const struct VCL_conf *conf)
     return 0;
 }
 
-VCL_VOID vmod_send(const struct vrt_ctx *ctx, struct vmod_priv *priv, VCL_STRING value, VCL_STRING host, VCL_INT port)
+VCL_VOID vmod_send(VRT_CTX, struct vmod_priv *priv, VCL_STRING value, VCL_STRING host, VCL_INT port)
 {
     struct sockaddr_in destaddr;
 

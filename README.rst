@@ -3,14 +3,23 @@ vmod_dgram
 ============
 
 ----------------------
-Varnish 4.0 Dgram Module
+Varnish UDP Dgram Module
 ----------------------
 
 :Author: Matthew M. Boedicker
 :Author: Maksim Naumov
-:Date: 2015-08-05
-:Version: 0.2
+:Modified by: didebuli
+:Date: 2021-07-19
+:Version: 6.5.2
 :Manual section: 3
+
+notice
+------
+
+I'm not a professional developer, but I did need this module to work with newer Varnish versions.
+This is the result... it should work with Varnish 6.5 .
+Use this module on your own risk.
+
 
 SYNOPSIS
 ========
